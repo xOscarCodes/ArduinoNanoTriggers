@@ -19,23 +19,16 @@ String PATH_NAME1   = "/trigger/Dark/with/key/cNaSNaDJm2fxJ-PUJslA7z-70gQV9dkqFT
 int dark = 0;
 
 void setup() {
-  WiFi.begin(ssid, pass);
+  WiFi.begin(ssid, pass); // Connecting to Wifi
   
   Serial.begin(9600);
   
   Wire.begin();
   
-  lightMeter.begin();
+  lightMeter.begin(); // Initializing the light sensor
   
   while(!Serial);
-  
-  if (client.connect(HOST_NAME, 80)){
-    Serial.println("Connected to server");
-  }
-  else {
-    Serial.println("Connection Failed");
-  }
-  
+
 }
 
 void loop() {
@@ -57,6 +50,13 @@ void loop() {
 
 void send_sunlight()
 {
+  if (client.connect(HOST_NAME, 80)){
+    Serial.println("Connected to server");
+  }
+  else {
+    Serial.println("Connection Failed");
+  }
+  
   client.println("GET " + PATH_NAME + queryString + " HTTP/1.1");
   client.println("Host: " + String(HOST_NAME));
   client.println("Connection: close");
@@ -76,6 +76,13 @@ void send_sunlight()
 
 void send_dark()
 {
+  if (client.connect(HOST_NAME, 80)){
+    Serial.println("Connected to server");
+  }
+  else {
+    Serial.println("Connection Failed");
+  }
+  
   client.println("GET " + PATH_NAME1 + queryString + " HTTP/1.1");
   client.println("Host: " + String(HOST_NAME));
   client.println("Connection: close");
